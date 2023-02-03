@@ -2,7 +2,9 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { faClosedCaptioning, faEdit, faWindowClose } from '@fortawesome/free-regular-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -10,40 +12,48 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  faEdit = faEdit
+  faClose = faWindowClose;
+  faAdd = faPlus;
   title = 'toDoList';
   tasks: any;
   task: any;
   index: any;
   // newTask: any;
-  addTaskForm: FormGroup | undefined;
+  // addTaskForm: FormGroup;
+  addTaskForm = this.fb.group({
+    id: [''],
+    title: [''],
+    content: [''],
+  });
 
   @ViewChild('editModal') editModal: any; // Note: TemplateRe
   @ViewChild('addTaskModal') addTaskModal: any; // Note: TemplateRe
+  @ViewChild('deleteTaskModal') deleteTaskModal: any; // Note: TemplateRe
 
 
-  constructor(private http: HttpClient, private modalService: NgbModal, private fb: FormBuilder) {}
+  constructor(
+    private http: HttpClient,
+    private modalService: NgbModal,
+    private fb: FormBuilder
+  ) {}
+
   ngOnInit(): void {
-    // this.addTaskForm = new FormGroup({
-    //   id: new FormControl(),
-    //   title: new FormControl(),
-    //   content: new FormControl
-    // })
-
-    this.addTaskForm = this.fb.group({
-      id: [],
-      title: [],
-      content: []
-    })
     this.getTasks();
   }
 
   addTask() {
+    const headers = { 'content-type': 'application/json' };
     let body = {
-        id: this.tasks.length + 1,
-        title: "To do 1",
-        content: "This is the first to do"
-    }
-    // this.http.post('http://localhost:3000/tasks', ).subscribe(data => {})
+      id: this.tasks.length + 1,
+      title: this.addTaskForm?.value.title,
+      content: this.addTaskForm?.value.content,
+    };
+    this.http
+      .post('http://localhost:3000/tasks', body, { headers: headers })
+      .subscribe((data) => {
+        this.getTasks();
+      });
   }
 
   getTasks() {
@@ -74,6 +84,11 @@ export class AppComponent implements OnInit {
   openAddModal() {
     // this.task = task;
     this.modalService.open(this.addTaskModal);
+  }
+
+  deleteModal(task: any) {
+    this.task = task;
+    this.modalService.open(this.deleteTaskModal);
   }
 
   openModal(task: any) {
