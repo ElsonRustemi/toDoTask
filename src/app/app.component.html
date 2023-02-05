@@ -1,80 +1,14 @@
-<div class="border border-secondary text-bg-info p-3" style="display: flex; justify-content: center;">
-  <h1 class="">The is the to do list</h1>
+<body id="lines"></body>
+
+
+<app-header></app-header>
+<div style="padding: 25px 0px 0px 25px">
+  <!-- (click)="addMore()" -->
+  <button class="btn btn-primary">Add task tab</button>
 </div>
-
-<div class="d-flex justify-content-center" style="padding-top: 150px;">
-  <div class="card" style="width: 18rem;">
-    <div class="card-header">
-      To dos
-        <fa-icon class="float-end" style="font-size: 20px;" [icon]="faAdd" (click)="openAddModal()"></fa-icon>
-    </div>
-    <ul *ngFor="let task of tasks" class="list-group list-group-flush">
-      <li class="list-group-item">{{task.title}}
-        <div class="float-end" >
-          <fa-icon style="font-size: 20px; padding-right: 15px;" [icon]="faEdit" (click)="openModal(task);"></fa-icon>
-          <!-- <fa-icon style="font-size: 20px;" [icon]="faClose" (click)="deleteTask(task);"></fa-icon> -->
-          <fa-icon style="font-size: 20px;" [icon]="faClose" (click)="deleteModal(task)"></fa-icon>
-
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<ng-template #editModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit Form</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-
-  <div class="modal-body">
-    <input type="text" class="form-control" [(ngModel)]="task.title">
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close();">Close</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close(); updateTask();">Save</button>
-  </div>
-</ng-template>
-
-<ng-template #deleteTaskModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Delete task</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-
-  <div class="modal-body">
-    Are you sure you want to delete this task?
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close();">Close</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close(); deleteTask(task);">Delete</button>
-  </div>
-</ng-template>
-
-<ng-template #addTaskModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add task</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-
-  <div class="modal-body">
-    <form action="" [formGroup]="addTaskForm">
-      <label>Add title</label>
-      <input type="text" class="form-control" formControlName="title">
-      <br>
-      <label>Add content</label>
-      <input type="text" class="form-control" formControlName="content">
-    </form>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close();">Close</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close(); addTask();">Add</button>
-  </div>
-</ng-template>
-  
+<!-- #childCom -->
+<app-task-card></app-task-card>
+<!-- <ng-template #container></ng-template> -->
 
 
 
