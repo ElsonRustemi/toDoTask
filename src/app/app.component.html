@@ -1,15 +1,13 @@
-<body id="lines"></body>
+<body id="lines">
+</body>
 
 
 <app-header></app-header>
 <div style="padding: 25px 0px 0px 25px">
-  <!-- (click)="addMore()" -->
-  <button class="btn btn-primary">Add task tab</button>
+  <!-- (click)="add()" -->
+  <button class="btn btn-primary" (click)="add()">Add task tab</button>
 </div>
-<!-- #childCom -->
-<app-task-card></app-task-card>
-<!-- <ng-template #container></ng-template> -->
+<!-- #childCom bootstrap: [AppComponent], entryComponents: [InputComponent] -->
+<app-task-card #childCom></app-task-card>
 
-
-
-
+<ng-template #container></ng-template>

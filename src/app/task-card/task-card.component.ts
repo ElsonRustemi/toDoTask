@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { faClosedCaptioning, faEdit, faWindowClose } from '@fortawesome/free-regular-svg-icons';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -14,9 +15,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class TaskCardComponent implements OnInit {
 
+  public unique_key!: number;
+  public parentRef!: AppComponent;
+
   faEdit = faEdit;
   faClose = faWindowClose;
   faAdd = faPlus;
+  faDelete = faMinus;
   title = 'toDoList';
   tasks: any;
   task: any;
@@ -41,21 +46,24 @@ export class TaskCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTasks();
-
   }
 
   addTask() {
     const headers = { 'content-type': 'application/json' };
     let body = {
-      id: this.tasks.length + 1,
       title: this.addTaskForm?.value.title,
       content: this.addTaskForm?.value.content,
     };
     this.http
       .post('http://localhost:3000/tasks', body, { headers: headers })
       .subscribe((data) => {
+        this.resetForm();
         this.getTasks();
       });
+  }
+
+  resetForm() {
+    this.addTaskForm.reset();
   }
 
   getTasks() {

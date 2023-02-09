@@ -19,23 +19,23 @@
   "tasks": [
     {
       "id": 1,
-      "title": "To do 1",
-      "content": "This is the first to do"
+      "title": "Duplicate component",
+      "content": "Add task tab (Duplicate component)"
     },
     {
       "id": 2,
       "title": "To do 2",
-      "content": "This is the second to do"
+      "content": "Delete task tab"
     },
     {
       "id": 3,
       "title": "To do 3",
-      "content": "This is the third to do"
+      "content": "Start new tab with no tasks"
     },
     {
       "id": 4,
       "title": "To do 4",
-      "content": "This is the fourth to do"
+      "content": "Make height of the body 100%"
     },
     {
       "id": 6,

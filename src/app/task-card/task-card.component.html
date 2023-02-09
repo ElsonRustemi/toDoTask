@@ -1,11 +1,17 @@
+
+<!-- display: contents; width: 300px; -->
+<!-- The reason it looks like you can't move the other 
+task bars around is because of the huge width around the task bars -->
 <div class="d-flex justify-content-center" style="padding-top: 150px;" cdkDrag>
-    <div class="card" style="width: 18rem;">
+    <!-- style="width: 18rem;" -->
+    <div class="card" style="width: 18rem;" >
         <div class="card-header">
             To dos
+            <fa-icon class="float-end" style="font-size: 20px; padding-left: 15px;" [icon]="faDelete"></fa-icon>
             <fa-icon class="float-end" style="font-size: 20px;" [icon]="faAdd" (click)="openAddModal()"></fa-icon>
         </div>
         <ul *ngFor="let task of tasks" class="list-group list-group-flush">
-            <li class="list-group-item">{{task.title}}
+            <li class="list-group-item">{{task.content}}
                 <div class="float-end">
                     <fa-icon style="font-size: 20px; padding-right: 15px;" [icon]="faEdit"
                         (click)="openModal(task);"></fa-icon>
@@ -23,7 +29,7 @@
     </div>
 
     <div class="modal-body">
-        <input type="text" class="form-control" [(ngModel)]="task.title">
+        <input type="text" class="form-control" [(ngModel)]="task.content">
     </div>
 
     <div class="modal-footer">
@@ -51,7 +57,7 @@
 <ng-template #addTaskModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add task</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss(); resetForm();"></button>
     </div>
 
     <div class="modal-body">
@@ -65,7 +71,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close();">Close</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(); resetForm();">Close</button>
         <button type="button" class="btn btn-outline-dark" (click)="modal.close(); addTask();">Add</button>
     </div>
 </ng-template>

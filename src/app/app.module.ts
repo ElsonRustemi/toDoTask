@@ -29,7 +29,10 @@ import { HeaderComponent } from './header/header.component';
     BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TaskCardComponent]
 })
 export class AppModule { 
 }
+
+
