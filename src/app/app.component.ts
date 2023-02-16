@@ -1,14 +1,7 @@
 import {
   Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  ElementRef,
-  OnInit,
-  Type,
-  ViewChild,
-  ViewContainerRef,
+  OnInit
 } from '@angular/core';
-import { TaskCardComponent } from './task-card/task-card.component';
 
 @Component({
   selector: 'app-root',
@@ -16,19 +9,9 @@ import { TaskCardComponent } from './task-card/task-card.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  @ViewChild('container', { read: ViewContainerRef }) container:
-    | ViewContainerRef
-    | any;
 
-  input = TaskCardComponent;
-
-  constructor(private CFR: ComponentFactoryResolver) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  add() {
-    const componentFactory = this.CFR.resolveComponentFactory(this.input);
-    const component = this.container.createComponent(componentFactory);
-  }
 
 }

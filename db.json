@@ -20,12 +20,12 @@
     {
       "id": 1,
       "title": "Duplicate component",
-      "content": "Add task tab (Duplicate component)"
+      "content": "Cross completed task with line in the middle"
     },
     {
       "id": 2,
       "title": "To do 2",
-      "content": "Delete task tab"
+      "content": "Delete task tab (Done)"
     },
     {
       "id": 3,

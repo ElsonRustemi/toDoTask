@@ -1,3 +1,11 @@
 li:last-child {
     list-style-type: none;
 }
+
+.crossTask {
+    text-decoration-line: line-through;
+}
+
+.removeCrossTask {
+    text-decoration-line: none;
+}

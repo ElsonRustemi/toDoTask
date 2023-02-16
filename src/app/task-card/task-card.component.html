@@ -2,16 +2,19 @@
 <!-- display: contents; width: 300px; -->
 <!-- The reason it looks like you can't move the other 
 task bars around is because of the huge width around the task bars -->
-<div class="d-flex justify-content-center" style="padding-top: 150px;" cdkDrag>
+
+<div class="d-flex justify-content-center" style="padding-top: 150px;display: contents; width: 300px; " cdkDrag>
     <!-- style="width: 18rem;" -->
     <div class="card" style="width: 18rem;" >
         <div class="card-header">
             To dos
-            <fa-icon class="float-end" style="font-size: 20px; padding-left: 15px;" [icon]="faDelete"></fa-icon>
+            <fa-icon class="float-end" style="font-size: 20px; padding-left: 15px;" [icon]="faDelete" (click)="remove_me()"></fa-icon>
             <fa-icon class="float-end" style="font-size: 20px;" [icon]="faAdd" (click)="openAddModal()"></fa-icon>
         </div>
-        <ul *ngFor="let task of tasks" class="list-group list-group-flush">
-            <li class="list-group-item">{{task.content}}
+        <!-- {crossTask: taskCompleted} -->
+        <!-- crossTask:task.toggle ? 'crossTask' : 'removeCrossTask' -->
+        <ul *ngFor="let task of tasks; let index as i;" class="list-group list-group-flush">
+            <li class="list-group-item crossTask" (click)="doneTask(task);" [ngClass]="{crossTask: taskCompleted}">{{task.content}}
                 <div class="float-end">
                     <fa-icon style="font-size: 20px; padding-right: 15px;" [icon]="faEdit"
                         (click)="openModal(task);"></fa-icon>

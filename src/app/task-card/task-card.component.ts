@@ -1,11 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { faClosedCaptioning, faEdit, faWindowClose } from '@fortawesome/free-regular-svg-icons';
+import { FormBuilder } from '@angular/forms';
+import { faEdit, faWindowClose } from '@fortawesome/free-regular-svg-icons';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { AppComponent } from '../app.component';
+import { TaskParentComponent } from '../task-parent/task-parent.component';
 
 
 @Component({
@@ -16,7 +15,7 @@ import { AppComponent } from '../app.component';
 export class TaskCardComponent implements OnInit {
 
   public unique_key!: number;
-  public parentRef!: AppComponent;
+  public parentRef!: TaskParentComponent;
 
   faEdit = faEdit;
   faClose = faWindowClose;
@@ -26,12 +25,15 @@ export class TaskCardComponent implements OnInit {
   tasks: any;
   task: any;
   index: any;
-  // newTask: any;
-  // addTaskForm: FormGroup;
+
+  toggle!: boolean;
+  taskCompleted!: boolean;
+
+
   addTaskForm = this.fb.group({
     id: [''],
     title: [''],
-    content: [''],
+    content: ['']
   });
 
   @ViewChild('editModal') editModal: any; // Note: TemplateRe
@@ -120,5 +122,18 @@ export class TaskCardComponent implements OnInit {
   onDragLeave(evt: any) {
     evt.preventDefault();
     evt.stopPropagation();
+  }
+
+  remove_me() {
+    console.log(this.unique_key)
+    this.parentRef.remove(this.unique_key)
+  }
+
+  doneTask(task: any) {
+    // console.log("Clicked");
+    console.log(task.id);
+    // task.toggle ? false : true;
+    // this.toggle = !this.toggle;
+    this.taskCompleted = !this.taskCompleted;
   }
 }
