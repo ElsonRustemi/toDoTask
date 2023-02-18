@@ -20,7 +20,7 @@
     {
       "id": 1,
       "title": "Duplicate component",
-      "content": "Cross completed task with line in the middle"
+      "content": "Cross completed task with line in the middle (done)"
     },
     {
       "id": 2,
@@ -41,6 +41,11 @@
       "id": 6,
       "title": "Xhuli <3",
       "content": "I love her"
+    },
+    {
+      "title": "Reality check",
+      "content": "Need to make it a lot more dynamic....",
+      "id": 7
     }
   ]
 }

@@ -29,13 +29,18 @@ export class TaskCardComponent implements OnInit {
   toggle!: boolean;
   taskCompleted!: boolean;
 
+  toDosTitle: string = "Click to change title...";
+
+
+
 
   addTaskForm = this.fb.group({
     id: [''],
     title: [''],
-    content: ['']
+    content: [''],
   });
 
+  @ViewChild('titleModal') titleModal: any; // Note: TemplateRe
   @ViewChild('editModal') editModal: any; // Note: TemplateRe
   @ViewChild('addTaskModal') addTaskModal: any; // Note: TemplateRe
   @ViewChild('deleteTaskModal') deleteTaskModal: any; // Note: TemplateRe
@@ -98,6 +103,11 @@ export class TaskCardComponent implements OnInit {
     this.modalService.open(this.addTaskModal);
   }
 
+  opentitleModal() {
+    // this.task = task;
+    this.modalService.open(this.titleModal);
+  }
+
   deleteModal(task: any) {
     this.task = task;
     this.modalService.open(this.deleteTaskModal);
@@ -129,11 +139,14 @@ export class TaskCardComponent implements OnInit {
     this.parentRef.remove(this.unique_key)
   }
 
-  doneTask(task: any) {
-    // console.log("Clicked");
-    console.log(task.id);
-    // task.toggle ? false : true;
-    // this.toggle = !this.toggle;
+  doneTask(task: any, event: any) {
+
     this.taskCompleted = !this.taskCompleted;
+    if(this.taskCompleted) {
+      event.target.style['text-decoration-line'] = 'line-through';
+    } else {
+      event.target.style['text-decoration-line'] = 'none';
+    }
+
   }
 }
