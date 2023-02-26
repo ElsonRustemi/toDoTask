@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { faEdit, faWindowClose } from '@fortawesome/free-regular-svg-icons';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { TaskParentComponent } from '../task-parent/task-parent.component';
+import { SharedService } from '../shared.service';
 
 
 @Component({
@@ -48,55 +49,83 @@ export class TaskCardComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private modalService: NgbModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service: SharedService
   ) { }
 
   ngOnInit(): void {
-    this.getTasks();
+    // this.getTasks();
+    this.getTodos()
   }
 
-  addTask() {
-    const headers = { 'content-type': 'application/json' };
-    let body = {
-      title: this.addTaskForm?.value.title,
-      content: this.addTaskForm?.value.content,
-    };
-    this.http
-      .post('http://localhost:3000/tasks', body, { headers: headers })
-      .subscribe((data) => {
-        this.resetForm();
-        this.getTasks();
-      });
-  }
+  // addTask() {
+  //   const headers = { 'content-type': 'application/json' };
+  //   let body = {
+  //     title: this.addTaskForm?.value.title,
+  //     content: this.addTaskForm?.value.content,
+  //   };
+  //   this.http
+  //     .post('http://localhost:3000/tasks', body, { headers: headers })
+  //     .subscribe((data) => {
+  //       this.resetForm();
+  //       // this.getTasks();
+  //     });
+  // }
 
   resetForm() {
     this.addTaskForm.reset();
   }
 
-  getTasks() {
-    this.http.get('http://localhost:3000/tasks').subscribe((res) => {
-      this.tasks = res;
-    });
+  // getTasks() {
+  //   this.http.get('http://localhost:3000/tasks').subscribe((res) => {
+  //     this.tasks = res;
+  //   });
+  // }
+
+  addTodos() {
+    let body = {
+      title: this.addTaskForm?.value.title,
+      description: this.addTaskForm?.value.content,
+    };
+    this.service.addTodos(body).subscribe(data => {
+      console.log(data);
+      this.getTodos();
+    })
   }
 
-  updateTask() {
-    this.http
-      .put('http://localhost:3000/tasks/' + this.task.id, this.task)
-      .subscribe((data) => {
-        console.log(data);
-
-        // console.log(task);
-        this.getTasks();
-      });
+  getTodos() {
+    this.service.getTodos().subscribe(data => {
+      this.tasks = data;
+    })
   }
 
-  deleteTask(index: any) {
-    this.http
-      .delete('http://localhost:3000/tasks/' + index.id)
-      .subscribe((data) => {
-        this.getTasks();
-      });
+  updateTodos() {
+    this.service.updateTodos(this.task).subscribe(data => {
+      console.log(data);
+    })
   }
+
+  deleteTodos(task:any) {    
+    this.service.deleteTodos(task.id).subscribe(data => {
+      this.getTodos();
+    })
+  }
+
+  // updateTask() {
+  //   this.http
+  //     .put('http://localhost:3000/tasks/' + this.task.id, this.task)
+  //     .subscribe((data) => {
+  //       // this.getTasks();
+  //     });
+  // }
+
+  // deleteTask(index: any) {
+  //   this.http
+  //     .delete('http://localhost:3000/tasks/' + index.id)
+  //     .subscribe((data) => {
+  //       // this.getTasks();
+  //     });
+  // }
 
   openAddModal() {
     // this.task = task;

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { HeaderComponent } from './header/header.component';
 import { TaskParentComponent } from './task-parent/task-parent.component';
+import { SharedService } from './shared.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,9 @@ import { TaskParentComponent } from './task-parent/task-parent.component';
     FontAwesomeModule,
     DragDropModule,
     BrowserAnimationsModule,
-    CommonModule
+    CommonModule,
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent],
   entryComponents: [TaskCardComponent]
 })
